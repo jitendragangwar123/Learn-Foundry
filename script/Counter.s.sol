@@ -5,8 +5,6 @@ import {Script, console} from "forge-std/Script.sol";
 import {Counter} from "../src/Counter.sol";
 
 contract CounterScript is Script {
-    function setUp() public {}
-
     function run() external returns(Counter){
         vm.startBroadcast();
         Counter counter = new Counter();
