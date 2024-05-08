@@ -67,8 +67,12 @@ $ forge script script/Counter.s.sol:CounterScript --rpc-url $RPC_URL --account d
 
 ```shell
 $ cast <subcommand>
-//hex-->decimal
-$ cast --to-base 0x21de9 dec 
+
+// interaction with smart contract functions
+$ cast send 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 "setNumber(uint256)" 157 --rpc-url $RPC_URL --private-key $PRIVATE_KEY
+$ cast send 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 "increment()" 0 --rpc-url $RPC_URL --private-key $PRIVATE_KEY
+$ cast call 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 "getNumber()"
+$ cast --to-base 0x00000000000000000000000000000000000000000000000000000000000000a0 dec
 ```
 
 ### Help
