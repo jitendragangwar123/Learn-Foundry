@@ -30,7 +30,8 @@ $ forge test
 ### Format
 
 ```shell
-$ forge fmt
+// to format the solidity files
+$ forge fmt 
 ```
 
 ### Gas Snapshots
