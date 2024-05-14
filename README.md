@@ -52,12 +52,10 @@ $ anvil
 $ forge create Counter --rpc-url <your_rpc_url> --private-key <your_private_key>
 $ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
 $ forge script script/Counter.s.sol:CounterScript --rpc-url http://127.0.0.1:8545 --broadcast --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
-
 // using .env file
 $ source .env 
 $ echo $PRIVATE_KEY
 $ forge script script/Counter.s.sol:CounterScript --rpc-url $RPC_URL --broadcast --private-key $PRIVATE_KEY 
-
 // import hexadecimal private key into keystore
 $ cast wallet import defaultKey --interactive
 $ cast wallet list
@@ -68,7 +66,6 @@ $ forge script script/Counter.s.sol:CounterScript --rpc-url $RPC_URL --account d
 
 ```shell
 $ cast <subcommand>
-
 // interaction with smart contract functions
 $ cast send 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 "setNumber(uint256)" 157 --rpc-url $RPC_URL --private-key $PRIVATE_KEY
 $ cast send 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 "increment()" 0 --rpc-url $RPC_URL --private-key $PRIVATE_KEY
