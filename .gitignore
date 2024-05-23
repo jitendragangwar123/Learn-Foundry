@@ -10,6 +10,7 @@ broadcast/Counter.s.sol/
 
 # Docs
 docs/
+.gas-snapshot
 
 # Dotenv file
 .env
