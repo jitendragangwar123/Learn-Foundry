@@ -25,7 +25,11 @@ $ forge init --force
 ### Test
 
 ```shell
-$ forge test
+$ forge test 
+// to run all test cases along with console output 
+$ forge test -vv 
+// to run single test case
+$ forge test --match-test testPriceFeedVersionIsAccurate -vvv
 ```
 
 ### Format
