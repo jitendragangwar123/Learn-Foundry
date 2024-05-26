@@ -31,6 +31,7 @@ $ forge test -vv
 // to run single test case
 $ forge test --match-test testPriceFeedVersionIsAccurate -vvv
 // to run test on-chain forks
+$  forge test --fork-url $SEPOLIA_RPC_URL -vvv
 $ forge test --match-test testPriceFeedVersionIsAccurate --fork-url $SEPOLIA_RPC_URL -vvv
 // to check how much part of the smart contract being tested
 $ forge coverage --fork-url $SEPOLIA_RPC_URL

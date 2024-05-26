@@ -17,7 +17,7 @@ contract FundMe {
 
     constructor(address pricefeed) {
         i_owner = msg.sender;
-        s_priceFeed=AggregatorV3Interface(pricefeed);
+        s_priceFeed = AggregatorV3Interface(pricefeed);
     }
 
     modifier onlyOwner() {
@@ -44,7 +44,7 @@ contract FundMe {
     }
 
     function getVersion() public view returns (uint256) {
-        return AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306).version();
+        return s_priceFeed.version();
     }
 
     receive() external payable {

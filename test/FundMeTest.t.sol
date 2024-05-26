@@ -21,8 +21,8 @@ contract FundMeTest is Test {
     FundMe fundMe;
 
     function setUp() external {
-        DeployFundMe deployFundMe= new DeployFundMe();
-        fundMe=deployFundMe.run();
+        DeployFundMe deployFundMe = new DeployFundMe();
+        fundMe = deployFundMe.run();
     }
 
     function testMinimumUsdFive() public view {
@@ -32,11 +32,11 @@ contract FundMeTest is Test {
     }
 
     function testOwnerIsMsgSender() public view {
-        assertEq(fundMe.i_owner(), address(this));
+        assertEq(fundMe.i_owner(), msg.sender);
     }
 
     function testPriceFeedVersionIsAccurate() public view {
         uint256 version = fundMe.getVersion();
-        assertEq(version,4);
+        assertEq(version, 4);
     }
 }
