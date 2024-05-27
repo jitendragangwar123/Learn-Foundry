@@ -19,7 +19,7 @@ import {DeployFundMe} from "../script/DeployFundMe.s.sol";
 
 contract FundMeTest is Test {
     FundMe fundMe;
-    // makeAddr("Jay") return a address
+    // makeAddr("Jay") return an address
     address USER = makeAddr("Jay");
     uint256 constant SEND_VALUE = 0.1 ether;
     uint256 constant STARTING_BALANCE = 10 ether;
@@ -27,6 +27,7 @@ contract FundMeTest is Test {
     function setUp() external {
         DeployFundMe deployFundMe = new DeployFundMe();
         fundMe = deployFundMe.run();
+        // send some ether to USER
         vm.deal(USER, STARTING_BALANCE);
     }
 
@@ -37,7 +38,7 @@ contract FundMeTest is Test {
     }
 
     function testOwnerIsMsgSender() public view {
-        assertEq(fundMe.i_owner(), msg.sender);
+        assertEq(fundMe.getOwner(), msg.sender);
     }
 
     function testPriceFeedVersionIsAccurate() public view {
@@ -75,5 +76,22 @@ contract FundMeTest is Test {
         vm.prank(USER);
         vm.expectRevert();
         fundMe.withdraw();
+    }
+
+    function testWithdrawWithSingleFunder() public funded {
+        //arrange
+        uint256 startingOwnerBalance = fundMe.getOwner().balance;
+        uint256 startingFundMeBalance = address(fundMe).balance;
+
+        //Act
+        vm.prank(fundMe.getOwner());
+        fundMe.withdraw();
+
+        //assert
+        uint256 endingOwnerBalance = fundMe.getOwner().balance;
+        uint256 endingFundMeBalance = address(fundMe).balance;
+
+        assertEq(endingFundMeBalance, 0);
+        assertEq(startingFundMeBalance + startingOwnerBalance, endingOwnerBalance);
     }
 }
