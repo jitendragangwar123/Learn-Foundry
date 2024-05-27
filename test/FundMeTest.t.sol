@@ -23,6 +23,7 @@ contract FundMeTest is Test {
     address USER = makeAddr("Jay");
     uint256 constant SEND_VALUE = 0.1 ether;
     uint256 constant STARTING_BALANCE = 10 ether;
+    uint256 constant GAS_PRICE = 1;
 
     function setUp() external {
         DeployFundMe deployFundMe = new DeployFundMe();
@@ -84,8 +85,13 @@ contract FundMeTest is Test {
         uint256 startingFundMeBalance = address(fundMe).balance;
 
         //Act
+        //uint256 gasStart = gasleft(); //1000
+        //vm.txGasPrice(GAS_PRICE);
         vm.prank(fundMe.getOwner());
         fundMe.withdraw();
+        //uint256 gasEnd = gasleft(); //800
+        //uint256 gasUsed = (gasStart-gasEnd)*tx.gasprice;
+        //console.log(gasUsed);
 
         //assert
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
@@ -100,11 +106,11 @@ contract FundMeTest is Test {
         // use uint160 to generate the address using number
         uint160 numberOfFunders = 10;
         uint160 startingFunderIndex = 1;
-        for(uint160 i =startingFunderIndex; i<= numberOfFunders;i++){
+        for (uint160 i = startingFunderIndex; i <= numberOfFunders; i++) {
             // hoax() is the combination of vm.prank() and vm.deal()
-            hoax(address(i),SEND_VALUE);
+            hoax(address(i), SEND_VALUE);
             // console.log(address(i));
-            fundMe.fund{value:SEND_VALUE}();
+            fundMe.fund{value: SEND_VALUE}();
         }
 
         //arrange
@@ -115,7 +121,7 @@ contract FundMeTest is Test {
         fundMe.withdraw();
         vm.stopPrank();
 
-        assertEq(address(fundMe).balance,0);
-        assertEq(startingOwnerBalance+startingFundMeBalance,fundMe.getOwner().balance);
+        assertEq(address(fundMe).balance, 0);
+        assertEq(startingOwnerBalance + startingFundMeBalance, fundMe.getOwner().balance);
     }
 }
