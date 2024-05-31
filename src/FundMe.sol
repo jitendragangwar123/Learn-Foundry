@@ -15,17 +15,25 @@ contract FundMe {
     address[] private s_funders;
     AggregatorV3Interface private s_priceFeed;
     mapping(address => uint256) private s_addressToAmountFunded;
-
-    constructor(address pricefeed) {
-        i_owner = msg.sender;
-        s_priceFeed = AggregatorV3Interface(pricefeed);
-    }
-
+    
     modifier onlyOwner() {
         if (msg.sender != i_owner) {
             revert FundMe__NotOwner();
         }
         _;
+    }
+
+    constructor(address pricefeed) {
+        i_owner = msg.sender;
+        s_priceFeed = AggregatorV3Interface(pricefeed);
+    }
+    
+     receive() external payable {
+        fund();
+    }
+
+    fallback() external payable {
+        fund();
     }
 
     function fund() public payable {
@@ -71,20 +79,16 @@ contract FundMe {
         return s_addressToAmountFunded[fundingAddress];
     }
 
-    function getFunder(uint256 index) external view returns (address) {
+    function getFunder(uint256 index) public view returns (address) {
         return s_funders[index];
     }
 
-    function getOwner() external view returns (address) {
+    function getOwner() public view returns (address) {
         return i_owner;
     }
 
-    receive() external payable {
-        fund();
-    }
-
-    fallback() external payable {
-        fund();
+    function getPriceFeed() public view returns(AggregatorV3Interface){
+        return s_priceFeed;
     }
 }
 
