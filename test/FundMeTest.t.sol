@@ -16,9 +16,13 @@ pragma solidity ^0.8.18;
 import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../src/FundMe.sol";
 import {DeployFundMe} from "../script/DeployFundMe.s.sol";
+import {HelperConfig} from "../script/HelperConfig.s.sol";
+import {StdCheats} from "forge-std/StdCheats.sol";
+
 
 contract FundMeTest is Test {
-    FundMe fundMe;
+    FundMe public fundMe;
+    HelperConfig public helperConfig;
     // makeAddr("Jay") return an address
     address USER = makeAddr("Jay");
     uint256 constant SEND_VALUE = 0.1 ether;
@@ -27,11 +31,16 @@ contract FundMeTest is Test {
 
     function setUp() external {
         DeployFundMe deployFundMe = new DeployFundMe();
-        fundMe = deployFundMe.run();
+        (fundMe , helperConfig)= deployFundMe.run();
         // send some ether to USER
         vm.deal(USER, STARTING_BALANCE);
     }
-
+    
+    function testPriceFeedSetCorrectly() public view {
+        address retreivedPriceFeed = address(fundMe.getPriceFeed());
+        address expectedPriceFeed = helperConfig.activeNetworkConfig();
+        assertEq(retreivedPriceFeed,expectedPriceFeed);
+    }
     function testMinimumUsdFive() public view {
         console.log(fundMe.MINIMUM_USD());
         console.log(5e18);
