@@ -9,13 +9,14 @@ error FundMe__NotOwner();
 
 contract FundMe {
     using PriceConverter for uint256;
+
     uint256 public constant MINIMUM_USD = 5e18;
     address private immutable i_owner;
 
     address[] private s_funders;
     AggregatorV3Interface private s_priceFeed;
     mapping(address => uint256) private s_addressToAmountFunded;
-    
+
     modifier onlyOwner() {
         if (msg.sender != i_owner) {
             revert FundMe__NotOwner();
@@ -27,8 +28,8 @@ contract FundMe {
         i_owner = msg.sender;
         s_priceFeed = AggregatorV3Interface(pricefeed);
     }
-    
-     receive() external payable {
+
+    receive() external payable {
         fund();
     }
 
@@ -37,10 +38,7 @@ contract FundMe {
     }
 
     function fund() public payable {
-        require(
-            msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
-            "did not send enough eth"
-        );
+        require(msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD, "did not send enough eth");
 
         s_funders.push(msg.sender);
         s_addressToAmountFunded[msg.sender] += msg.value;
@@ -52,13 +50,12 @@ contract FundMe {
         }
 
         s_funders = new address[](0);
-        (bool success, ) = payable(msg.sender).call{
-            value: address(this).balance
-        }("");
+        (bool success,) = payable(msg.sender).call{value: address(this).balance}("");
         require(success, "call failed");
     }
+
     function withdrawCheaper() public onlyOwner {
-        uint256 funders=s_funders.length;
+        uint256 funders = s_funders.length;
         for (uint256 i = 0; i < funders; i++) {
             s_addressToAmountFunded[s_funders[i]] = 0;
         }
@@ -71,11 +68,7 @@ contract FundMe {
         return s_priceFeed.version();
     }
 
-    function getAddressToAmountFunded(address fundingAddress)
-        external
-        view
-        returns (uint256)
-    {
+    function getAddressToAmountFunded(address fundingAddress) external view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
     }
 
@@ -87,8 +80,7 @@ contract FundMe {
         return i_owner;
     }
 
-    function getPriceFeed() public view returns(AggregatorV3Interface){
+    function getPriceFeed() public view returns (AggregatorV3Interface) {
         return s_priceFeed;
     }
 }
-

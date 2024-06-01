@@ -99,3 +99,8 @@ $ cast --help
 $ forge inspect FundMe storageLayout
 $ cast storage 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 1
 ```
+
+### foundry-Devops Tool
+```shell
+$ forge install ChainAccelOrg/foundry-devops --no-commit
+```
