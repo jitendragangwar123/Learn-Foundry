@@ -79,6 +79,7 @@ contract FundMeTest is Test {
     modifier funded() {
         vm.prank(USER);
         fundMe.fund{value: SEND_VALUE}();
+        assert(address(fundMe).balance>0);
         _;
     }
 
