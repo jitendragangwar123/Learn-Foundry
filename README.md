@@ -1,9 +1,8 @@
-## Foundry
+## Foundry-Fund-Me
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
 Foundry consists of:
-
 -   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
 -   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
 -   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
@@ -31,7 +30,7 @@ $ forge test -vv
 // to run single test case
 $ forge test --match-test testPriceFeedVersionIsAccurate -vvv
 // to run test on-chain forks
-$  forge test --fork-url $SEPOLIA_RPC_URL -vvv
+$ forge test --fork-url $SEPOLIA_RPC_URL -vvv
 $ forge test --match-test testPriceFeedVersionIsAccurate --fork-url $SEPOLIA_RPC_URL -vvv
 // to check how much part of the smart contract being tested
 $ forge coverage --fork-url $SEPOLIA_RPC_URL
