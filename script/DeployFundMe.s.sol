@@ -14,6 +14,7 @@ contract DeployFundMe is Script {
         vm.startBroadcast();
         FundMe fundMe = new FundMe(ethUsdPriceFeed);
         vm.stopBroadcast();
+        // return deplyed smart contract address
         return (fundMe, helperConfig);
     }
 }
