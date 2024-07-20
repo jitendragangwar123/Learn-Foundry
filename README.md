@@ -39,7 +39,6 @@ $ forge coverage --fork-url $SEPOLIA_RPC_URL
 ### Format
 
 ```shell
-// to format the solidity files
 $ forge fmt 
 ```
 
