@@ -11,7 +11,6 @@ import {StdCheats} from "forge-std/StdCheats.sol";
 contract FundMeTest is Test {
     FundMe public fundMe;
     HelperConfig public helperConfig;
-    // makeAddr("Jay") return an address
     address USER = makeAddr("Jay");
     uint256 constant SEND_VALUE = 0.1 ether;
     uint256 constant STARTING_BALANCE = 10 ether;
@@ -20,7 +19,6 @@ contract FundMeTest is Test {
     function setUp() external {
         DeployFundMe deployFundMe = new DeployFundMe();
         (fundMe, helperConfig) = deployFundMe.run();
-        // send some ether to USER
         vm.deal(USER, STARTING_BALANCE);
     }
 
