@@ -42,6 +42,12 @@ $ forge coverage --fork-url $SEPOLIA_RPC_URL
 $ forge fmt 
 ```
 
+### Contract Size
+
+```shell
+$ forge build --sizes
+```
+
 ### Gas Snapshots
 
 ```shell
